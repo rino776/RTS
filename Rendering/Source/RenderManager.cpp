@@ -1,8 +1,19 @@
 #include "RenderManager.h"
 #include <iostream>
+#include <GLFW/glfw3.h>
 
-using namespace Rendering;
+using namespace rendering;
 
-void RenderManager::test() {
-	std::cout << "Hello From Renderer!\n";
+void RenderManager::init() {
+	std::cout << "test\n";
+
+}
+
+RenderManager::RenderManager()
+{
+
+}
+
+RenderManager::~RenderManager() {
+
 }

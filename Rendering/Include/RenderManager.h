@@ -1,8 +1,13 @@
 #pragma once
-namespace Rendering{
-class RenderManager
+
+namespace rendering{
+
+	class RenderManager
 {
 public:
-	void test();
+	RenderManager();
+	virtual ~RenderManager();
+	void init();
+
 };
 }
