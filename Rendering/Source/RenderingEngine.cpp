@@ -1,6 +1,5 @@
 #include "RenderingEngine.h"
 
-
 using namespace rendering;
 
 void RenderingEngine::init() {
