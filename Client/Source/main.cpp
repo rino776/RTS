@@ -9,7 +9,7 @@ int main()
 {
 	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine());
 
-	renderingEngine->init();
+	//renderingEngine->init();
 
 	std::thread renderingThread = renderingEngine->start();
 
