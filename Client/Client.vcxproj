@@ -109,7 +109,7 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\c++projects\Libraries\glfw-3.3.8.bin.WIN64\include;%(AdditionalIncludeDirectories)</AdditionalIncludeDirectories>
+      <AdditionalIncludeDirectories>D:\c++projects\Libraries\glfw-3.3.8.bin.WIN64\include</AdditionalIncludeDirectories>
       <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
@@ -138,6 +138,7 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Rendering\Rendering.vcxproj">
@@ -147,6 +148,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Entity.h" />
+    <ClInclude Include="Include\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

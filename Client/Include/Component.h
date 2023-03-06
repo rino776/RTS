@@ -13,7 +13,7 @@ public:
 
     virtual void update();
     int getType() { return m_type; };
-private:
+protected:
     int m_type;
 
 };

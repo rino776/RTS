@@ -6,7 +6,6 @@ namespace core {
 class Entity
 {
 public:
-    Entity();
 
     void update();
     bool addComponent(Component* componant);
