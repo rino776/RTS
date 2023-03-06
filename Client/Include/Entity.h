@@ -9,12 +9,13 @@ public:
 
     void update();
     bool addComponent(Component* componant);
+    Component* getComponent(ComponentType type);
 
 private:
     int m_id;
     //whether this entity needs to be re-rendered or not
     bool m_isDirty;
-    std::unordered_map<int, Component*> m_components;
+    std::unordered_map<ComponentType, Component*> m_components;
 };
 }
 

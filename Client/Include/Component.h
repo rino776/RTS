@@ -1,20 +1,20 @@
 #pragma once
 namespace core {
 
-    enum Type {
+    typedef enum Type {
         eMesh, //3D
         eSprite, //2D
         eTransform, //position, scale, rotation etc
-    };
+    } ComponentType;
 
 class Component
 {
 public:
 
     virtual void update();
-    int getType() { return m_type; };
+    ComponentType getType() { return m_type; };
 protected:
-    int m_type;
+    ComponentType m_type;
 
 };
 }
