@@ -138,6 +138,7 @@
     <ClCompile Include="Source\Component.cpp" />
     <ClCompile Include="Source\Entity.cpp" />
     <ClCompile Include="Source\main.cpp" />
+    <ClCompile Include="Source\Sprite.cpp" />
     <ClCompile Include="Source\Transform.cpp" />
   </ItemGroup>
   <ItemGroup>
@@ -148,6 +149,7 @@
   <ItemGroup>
     <ClInclude Include="Include\Component.h" />
     <ClInclude Include="Include\Entity.h" />
+    <ClInclude Include="Include\Sprite.h" />
     <ClInclude Include="Include\Transform.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
