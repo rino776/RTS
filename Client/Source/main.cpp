@@ -5,7 +5,20 @@
 #include <Transform.h>
 #include <Sprite.h>
 
-
+/*
+* Explanation of Namespaces:
+* rendering - anything specific to the rendering
+* core - anything that needs to be shared accross namespaces
+* 
+* Possible future namespaces:
+* client
+* exporter? (Importer as well? or combine into one? or leave as part of client...?)
+* 
+* server?
+* physics
+* Maths?
+* 
+*/
 using namespace rendering;
 using namespace core;
 
@@ -25,7 +38,7 @@ int main()
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
-	ent->addComponent(new Sprite());
+	ent->addComponent(new Sprite());	
 
 	while (!renderingEngine->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));

@@ -21,8 +21,8 @@
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
-    <ProjectGuid>{0dbcb1a5-592b-45b5-a7d6-65dbf2dd457b}</ProjectGuid>
-    <RootNamespace>Client</RootNamespace>
+    <ProjectGuid>{b55465ad-87d0-4e4a-86db-db9a20bba80e}</ProjectGuid>
+    <RootNamespace>Core</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
@@ -40,7 +40,7 @@
     <CharacterSet>Unicode</CharacterSet>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'" Label="Configuration">
-    <ConfigurationType>Application</ConfigurationType>
+    <ConfigurationType>StaticLibrary</ConfigurationType>
     <UseDebugLibraries>true</UseDebugLibraries>
     <PlatformToolset>v143</PlatformToolset>
     <CharacterSet>Unicode</CharacterSet>
@@ -71,9 +71,8 @@
   </ImportGroup>
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
-    <IncludePath>D:\c++projects\RTS\Client\Include;$(IncludePath)</IncludePath>
-    <SourcePath>D:\c++projects\RTS\Client\Source;$(SourcePath)</SourcePath>
-    <ExternalIncludePath>D:\c++projects\RTS\Rendering\Include;D:\c++projects\RTS\Core\Include;$(ExternalIncludePath)</ExternalIncludePath>
+    <IncludePath>D:\c++projects\RTS\Core\Include;$(IncludePath)</IncludePath>
+    <SourcePath>D:\c++projects\RTS\Core\Source;$(SourcePath)</SourcePath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -109,13 +108,10 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <AdditionalIncludeDirectories>D:\c++projects\Libraries\glfw-3.3.8.bin.WIN64\include</AdditionalIncludeDirectories>
-      <LanguageStandard>stdcpp20</LanguageStandard>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
       <GenerateDebugInformation>true</GenerateDebugInformation>
-      <AdditionalLibraryDirectories>%(AdditionalLibraryDirectories)</AdditionalLibraryDirectories>
     </Link>
   </ItemDefinitionGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
@@ -135,15 +131,16 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
-    <ClCompile Include="..\Client\Source\main.cpp" />
+    <ClInclude Include="..\Core\Include\Component.h" />
+    <ClInclude Include="..\Core\Include\Entity.h" />
+    <ClInclude Include="..\Core\Include\Sprite.h" />
+    <ClInclude Include="..\Core\Include\Transform.h" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\Core\Core.vcxproj">
-      <Project>{b55465ad-87d0-4e4a-86db-db9a20bba80e}</Project>
-    </ProjectReference>
-    <ProjectReference Include="..\Rendering\Rendering.vcxproj">
-      <Project>{77a27a53-de57-4ce4-a3aa-a95e7212cb23}</Project>
-    </ProjectReference>
+    <ClCompile Include="..\Core\Source\Component.cpp" />
+    <ClCompile Include="..\Core\Source\Entity.cpp" />
+    <ClCompile Include="..\Core\Source\Sprite.cpp" />
+    <ClCompile Include="..\Core\Source\Transform.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
