@@ -1,7 +1,15 @@
 #include "Entity.h"
 
-
 using namespace core;
+
+Entity::Entity() {
+    //force it 
+    m_isDirty = true;
+    //id of -1 means it is invalid.
+    //TODO: think of good way to set the ID.
+    m_id = -1;
+}
+
 
 void Entity::update() {
     for (auto c : m_components) {

@@ -3,6 +3,7 @@
 #include <RenderingEngine.h>
 #include <Entity.h>
 #include <Transform.h>
+#include <Sprite.h>
 
 
 using namespace rendering;
@@ -24,6 +25,7 @@ int main()
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
+	ent->addComponent(new Sprite());
 
 	while (!renderingEngine->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));

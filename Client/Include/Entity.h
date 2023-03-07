@@ -6,10 +6,13 @@ namespace core {
 class Entity
 {
 public:
-
+    Entity();
     void update();
     bool addComponent(Component* componant);
     Component* getComponent(ComponentType type);
+
+    int id() { return m_id; }
+    void setID(int id) { m_id = id; }
 
 private:
     int m_id;

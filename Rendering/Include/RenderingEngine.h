@@ -4,6 +4,7 @@
 #include <thread>
 #include <memory>
 
+
 namespace rendering {
 class RenderingEngine
 {
@@ -13,7 +14,6 @@ public:
 	void cleanup();
 	void renderLoop();
 	bool shouldClose() { return m_shouldClose; };
-
 
 protected:
 
