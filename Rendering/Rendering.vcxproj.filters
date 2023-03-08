@@ -36,6 +36,9 @@
     <ClInclude Include="Include\glad\glad.h">
       <Filter>Header Files\glad</Filter>
     </ClInclude>
+    <ClInclude Include="Include\RenderCommand.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\RenderManager.cpp">
@@ -49,6 +52,9 @@
     </ClCompile>
     <ClCompile Include="Source\glad.c">
       <Filter>Source Files\glad</Filter>
+    </ClCompile>
+    <ClCompile Include="Source\RenderCommand.cpp">
+      <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
 </Project>

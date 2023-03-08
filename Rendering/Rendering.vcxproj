@@ -21,15 +21,22 @@
   <ItemGroup>
     <ClInclude Include="Include\glad\glad.h" />
     <ClInclude Include="Include\KHR\khrplatform.h" />
+    <ClInclude Include="Include\RenderCommand.h" />
     <ClInclude Include="Include\RenderingEngine.h" />
     <ClInclude Include="Include\RenderManager.h" />
     <ClInclude Include="Include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="Source\glad.c" />
+    <ClCompile Include="Source\RenderCommand.cpp" />
     <ClCompile Include="Source\RenderingEngine.cpp" />
     <ClCompile Include="Source\RenderManager.cpp" />
     <ClCompile Include="Source\WindowManager.cpp" />
+  </ItemGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Core\Core.vcxproj">
+      <Project>{b55465ad-87d0-4e4a-86db-db9a20bba80e}</Project>
+    </ProjectReference>
   </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
@@ -86,7 +93,7 @@
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <IncludePath>D:\c++projects\RTS\Rendering\Include;$(IncludePath)</IncludePath>
     <SourcePath>D:\c++projects\RTS\Rendering\Source;$(SourcePath)</SourcePath>
-    <ExternalIncludePath>$(ExternalIncludePath)</ExternalIncludePath>
+    <ExternalIncludePath>D:\c++projects\RTS\Core\Include;$(ExternalIncludePath)</ExternalIncludePath>
     <LibraryPath>$(LibraryPath)</LibraryPath>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
