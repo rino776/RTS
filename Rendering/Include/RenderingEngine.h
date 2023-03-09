@@ -7,6 +7,7 @@
 #include <map>
 #include <RenderCommand.h>
 #include <Sprite.h>
+#include <ShaderManager.h>
 
 
 namespace rendering {
@@ -25,9 +26,11 @@ protected:
 
 private:
 	std::unique_ptr<WindowManager> m_windowManager;
+	std::unique_ptr<ShaderManager> m_shaderManager;
 	bool m_shouldClose = false;
 	//does this need to be lockable?
 	std::vector<RenderCommand*> m_renderCommands;
+
 
 };
 }

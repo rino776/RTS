@@ -5,8 +5,8 @@ using namespace core;
 
 void RenderingEngine::init() {
 	m_windowManager = std::make_unique<WindowManager>(WindowManager());
-	
 	m_shouldClose = !m_windowManager->createWindow(800,600,"Hello World!");
+	m_shaderManager = std::make_unique<ShaderManager>(ShaderManager());
 
 	renderLoop();
 }
@@ -24,9 +24,9 @@ void RenderingEngine::renderLoop() {
 		glClearColor(0.1, 0.1, 0.1, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
 
-		for (RenderCommand* rc : m_renderCommands) {
-			rc->execute();
-		}
+		//for (RenderCommand* rc : m_renderCommands) {
+			//rc->execute();
+		//}
 
 	}
 	cleanup();
@@ -54,6 +54,7 @@ void RenderingEngine::updateEntities(std::vector<core::Entity*> entities) {
 RenderCommand* RenderingEngine::createSprite(Sprite* sprite) {
 	//create VAO
 	//create Shader
+	return nullptr;
 }
 
 void RenderingEngine::cleanup() {
