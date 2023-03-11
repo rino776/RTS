@@ -23,20 +23,21 @@ void RenderingEngine::renderLoop() {
 		m_windowManager->updateWindow();
 		glClearColor(0.1, 0.1, 0.1, 1.0);
 		glClear(GL_COLOR_BUFFER_BIT);
-
-		//for (RenderCommand* rc : m_renderCommands) {
-			//rc->execute();
-		//}
+		updateEntities();
+		for (RenderCommand* rc : m_renderCommands) {
+			m_shaderManager->useShader(rc->material());
+			rc->execute();
+		}
 
 	}
 	cleanup();
 }
 //do the incomming entitities need to be locked?
-void RenderingEngine::updateEntities(std::vector<core::Entity*> entities) {
-	for (Entity* e : entities) {
+void RenderingEngine::updateEntities() {
+	for (Entity* e : m_dirtyEnts) {
 		//we probably want to check id here as well, to see if it is a new RC or an updated one...
 		//or should we always create new ones, and delete the old ones?
-
+		
 		Component* renderable;
 		renderable = e->getComponent(eMesh);
 		if (renderable) {
@@ -45,16 +46,21 @@ void RenderingEngine::updateEntities(std::vector<core::Entity*> entities) {
 		}
 		renderable = e->getComponent(eSprite);
 		if (renderable) {
+			RenderCommand* rc = createSprite((Sprite*)renderable);
+			rc->setID(e->id());
 			m_renderCommands.push_back(createSprite((Sprite*)renderable));
 			continue;
 		}
 	}
+	m_dirtyEnts.clear();
+}
+
+void RenderingEngine::setDirtyEntities(std::vector<Entity*>& dirtyEnts) {
+	m_dirtyEnts.insert(m_dirtyEnts.end(), dirtyEnts.begin(), dirtyEnts.end());
 }
 
 RenderCommand* RenderingEngine::createSprite(Sprite* sprite) {
-	//create VAO
-	//create Shader
-	return nullptr;
+	return new RenderCommand(0);
 }
 
 void RenderingEngine::cleanup() {

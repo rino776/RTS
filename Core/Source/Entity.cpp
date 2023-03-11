@@ -25,7 +25,7 @@ bool Entity::addComponent(Component* component) {
 
 Component* core::Entity::getComponent(ComponentType type)
 {
-    auto component =  m_components.find(type);
+    auto component = m_components.find(type);
 
     if (component != m_components.end())
         return component->second;

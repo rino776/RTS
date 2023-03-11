@@ -2,7 +2,7 @@
 namespace core {
 
     typedef enum Type {
-        eMesh, //3D
+        eMesh = 0, //3D
         eSprite, //2D
         eTransform, //position, scale, rotation etc
     } ComponentType;

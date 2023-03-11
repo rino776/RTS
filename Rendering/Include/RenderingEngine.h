@@ -19,7 +19,7 @@ public:
 	void cleanup();
 	void renderLoop();
 	bool shouldClose() { return m_shouldClose; };
-	void updateEntities(std::vector<core::Entity*>);
+	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
 
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite);
@@ -30,6 +30,9 @@ private:
 	bool m_shouldClose = false;
 	//does this need to be lockable?
 	std::vector<RenderCommand*> m_renderCommands;
+	void updateEntities();
+	std::vector<core::Entity*> m_dirtyEnts;
+
 
 
 };

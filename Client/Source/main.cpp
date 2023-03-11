@@ -35,10 +35,15 @@ int main()
 	renderingThread.detach();
 
 	printf("waiting for rendering thread \n");
+	std::vector<Entity*> entities;
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
 	ent->addComponent(new Sprite());	
+
+	entities.push_back(ent);
+	renderingEngine->setDirtyEntities(entities);
+	entities.clear();
 
 	while (!renderingEngine->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));
