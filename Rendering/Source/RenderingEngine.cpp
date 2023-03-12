@@ -32,7 +32,7 @@ void RenderingEngine::renderLoop() {
 	}
 	cleanup();
 }
-//do the incomming entitities need to be locked?
+
 void RenderingEngine::updateEntities() {
 	for (Entity* e : m_dirtyEnts) {
 		//we probably want to check id here as well, to see if it is a new RC or an updated one...
@@ -46,9 +46,8 @@ void RenderingEngine::updateEntities() {
 		}
 		renderable = e->getComponent(eSprite);
 		if (renderable) {
-			RenderCommand* rc = createSprite((Sprite*)renderable);
-			rc->setID(e->id());
-			m_renderCommands.push_back(createSprite((Sprite*)renderable));
+			RenderCommand* rc = createSprite((Sprite*)renderable, e->id());
+			m_renderCommands.push_back(rc);
 			continue;
 		}
 	}
@@ -59,8 +58,26 @@ void RenderingEngine::setDirtyEntities(std::vector<Entity*>& dirtyEnts) {
 	m_dirtyEnts.insert(m_dirtyEnts.end(), dirtyEnts.begin(), dirtyEnts.end());
 }
 
-RenderCommand* RenderingEngine::createSprite(Sprite* sprite) {
-	return new RenderCommand(0);
+RenderCommand* RenderingEngine::createSprite(Sprite* sprite, unsigned int id) {
+	
+	float vertexArray[] = {
+		-0.5f, -0.5f, 0.0f,
+		 0.5f, -0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f,
+
+		-0.5f,  -0.5f, 0.0f,
+		0.5f,  0.5f, 0.0f,
+		-0.5f,  0.5f, 0.0f,
+	};
+
+	std::vector<float> vertices = std::vector<float>();
+	
+	vertices.insert(vertices.end(), &vertexArray[0], &vertexArray[18]);
+	Geometry* geometry = new Geometry();
+	geometry->addComponent(vertex, vertices);
+	RenderCommand* rc = new RenderCommand(id);
+	rc->setGeometry(geometry);
+	return rc;
 }
 
 void RenderingEngine::cleanup() {

@@ -22,7 +22,7 @@ public:
 	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
 
 protected:
-	RenderCommand* createSprite(core::Sprite* sprite);
+	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
 
 private:
 	std::unique_ptr<WindowManager> m_windowManager;

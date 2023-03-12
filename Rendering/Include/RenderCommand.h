@@ -1,6 +1,9 @@
 #pragma once
 #include <ShaderManager.h>
-namespace rendering{
+#include <Geometry.h>
+
+namespace rendering {
+
 class RenderCommand
 {
 public:
@@ -8,14 +11,16 @@ public:
 
     void execute();
 
-    void setID(unsigned int id) { m_id = id; }
     unsigned int id() { return m_id; }
     ShaderType material() { return m_material; }
+    
+    //should only have 1 set of geometry per render command.
+    void setGeometry(Geometry* geometry) { m_geometry = geometry; }
 
 private:
     unsigned int m_id;
     ShaderType m_material;
-    unsigned int m_VAO;
+    Geometry* m_geometry;
 
 };
 }

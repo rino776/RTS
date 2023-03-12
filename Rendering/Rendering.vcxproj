@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Geometry.h" />
     <ClInclude Include="Include\glad\glad.h" />
     <ClInclude Include="Include\KHR\khrplatform.h" />
     <ClInclude Include="Include\RenderCommand.h" />
@@ -28,6 +29,7 @@
     <ClInclude Include="Include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Geometry.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\RenderCommand.cpp" />
     <ClCompile Include="Source\RenderingEngine.cpp" />

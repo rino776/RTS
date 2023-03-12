@@ -6,11 +6,9 @@ using namespace rendering;
 
 void RenderManager::init() {
 	std::cout << "test\n";
-
 }
 
-RenderManager::RenderManager()
-{
+RenderManager::RenderManager() {
 
 }
 
