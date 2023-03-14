@@ -19,6 +19,7 @@
     </ProjectConfiguration>
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Include\Camera.h" />
     <ClInclude Include="Include\Geometry.h" />
     <ClInclude Include="Include\glad\glad.h" />
     <ClInclude Include="Include\KHR\khrplatform.h" />
@@ -29,6 +30,7 @@
     <ClInclude Include="Include\WindowManager.h" />
   </ItemGroup>
   <ItemGroup>
+    <ClCompile Include="Source\Camera.cpp" />
     <ClCompile Include="Source\Geometry.cpp" />
     <ClCompile Include="Source\glad.c" />
     <ClCompile Include="Source\RenderCommand.cpp" />

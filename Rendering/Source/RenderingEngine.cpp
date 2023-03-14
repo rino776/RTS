@@ -21,14 +21,13 @@ void RenderingEngine::renderLoop() {
 	while (!m_windowManager->shouldClose()) {
 		//update stuff here
 		m_windowManager->updateWindow();
-		glClearColor(0.1, 0.1, 0.1, 1.0);
+		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		updateEntities();
 		for (RenderCommand* rc : m_renderCommands) {
 			m_shaderManager->useShader(rc->material());
 			rc->execute();
 		}
-
 	}
 	cleanup();
 }

@@ -7,7 +7,8 @@ using namespace rendering;
 
 RenderCommand::RenderCommand(unsigned int id) {
     m_id = id;
-    m_material = sBasic;    
+    m_material = sBasic;
+    m_geometry = nullptr;
 }
 
 void RenderCommand::execute() {

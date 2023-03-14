@@ -5,6 +5,7 @@ using namespace rendering;
 
 Geometry::Geometry()
 {
+    m_vertexCount = 0;
     glGenVertexArrays(1, &m_id);
 }
 

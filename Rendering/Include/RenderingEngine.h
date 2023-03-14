@@ -28,7 +28,7 @@ private:
 	std::unique_ptr<WindowManager> m_windowManager;
 	std::unique_ptr<ShaderManager> m_shaderManager;
 	bool m_shouldClose = false;
-	//does this need to be lockable?
+	//move this to RenderManager?
 	std::vector<RenderCommand*> m_renderCommands;
 	void updateEntities();
 	std::vector<core::Entity*> m_dirtyEnts;

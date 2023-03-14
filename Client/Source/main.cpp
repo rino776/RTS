@@ -29,12 +29,10 @@ int main()
 	//renderingEngine->init();
 
 	std::thread renderingThread = renderingEngine->start();
-
-	printf("Hello From Main thread \n");
 	
 	renderingThread.detach();
 
-	printf("waiting for rendering thread \n");
+	printf("Rendering thread detatched \n");
 	std::vector<Entity*> entities;
 
 	Entity* ent = new Entity();

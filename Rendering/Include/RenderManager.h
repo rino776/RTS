@@ -8,6 +8,9 @@ public:
 	RenderManager();
 	virtual ~RenderManager();
 	void init();
+	void update();
+	void render();
+
 
 };
 }
