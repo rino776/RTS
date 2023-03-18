@@ -1,5 +1,7 @@
 #include "RenderingEngine.h"
 #include <RenderingEngine.h>
+#include <glm/ext/matrix_transform.hpp>
+#include <Transform.h>
 using namespace rendering;
 using namespace core;
 
@@ -33,20 +35,30 @@ void RenderingEngine::updateEntities() {
 	for (Entity* e : m_dirtyEnts) {
 		//we probably want to check id here as well, to see if it is a new RC or an updated one...
 		//or should we always create new ones, and delete the old ones?
-		
+		RenderCommand* rc{};
 		Component* renderable;
 		renderable = e->getComponent(eMesh);
 		if (renderable) {
 			//createMeshRC
-			continue;
 		}
 		renderable = e->getComponent(eSprite);
 		if (renderable) {
-			RenderCommand* rc = createSprite((Sprite*)renderable, e->id());
-			m_renderManager->addRenderCommand(rc);
-			continue;
+			rc = createSprite((Sprite*)renderable, e->id());
 		}
+
+		if (!rc)
+			continue;
+
+		Component* c = e->getComponent(eTransform);
+		if (c) {	
+			Transform* transform = (Transform*)(c);
+			rc->setModelMatrix(transform->getTransformMatrix());
+		}
+	
+		if(rc)
+			m_renderManager->addRenderCommand(rc);
 	}
+
 	m_dirtyEnts.clear();
 }
 

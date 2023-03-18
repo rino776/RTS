@@ -1,5 +1,6 @@
 #pragma once
 #include <RenderCommand.h>
+#include <Camera.h>
 #include <memory>
 
 namespace rendering{
@@ -15,5 +16,6 @@ public:
 private:
 	std::vector<RenderCommand> m_renderCommands;
 	std::unique_ptr<ShaderManager> m_shaderManager;
+	std::unique_ptr<Camera> m_Camera;
 };
 }

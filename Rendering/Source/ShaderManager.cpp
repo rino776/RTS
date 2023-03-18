@@ -2,6 +2,7 @@
 #include <glad/glad.h>
 #include <fstream>
 #include <sstream>
+#include <glm/gtc/type_ptr.hpp>
 
 using namespace rendering;
 
@@ -113,3 +114,16 @@ void ShaderManager::useShader(ShaderType name) {
         glUseProgram(0);
     }
 }
+
+//TODO: move this into a shader object?
+void ShaderManager::bindAttribute(ShaderType type, const std::string& name, glm::mat4 value) const
+{
+    auto location = m_shaders.find(type);
+    if (location != m_shaders.end()) {
+        glUniformMatrix4fv(glGetUniformLocation(location->second, name.c_str()), 1, GL_FALSE, glm::value_ptr(value));
+    }
+    else {
+        printf("Error: could not find shader!");
+    }
+
+   }

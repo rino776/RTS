@@ -6,9 +6,9 @@ using namespace glm;
 //TODO: make the origin a const?
 Transform::Transform() {
     m_type = eTransform;
-    m_position = vec3(0, 0, 0);
+    m_position = vec3(400, 300, 0);
     m_rotation = vec3(0, 0, 0);
-    m_scale = vec3(0, 0, 0);
+    m_scale = vec3(100, 100, 0);
 }
 
 

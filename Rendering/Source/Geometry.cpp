@@ -13,7 +13,7 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
 
     //make sure we know how many vertices there are
     if (type == vertex)
-        m_vertexCount = data.size();
+        m_vertexCount = data.size() / 3.0f;
     
     glBindVertexArray(m_id);
     unsigned int VBO;
