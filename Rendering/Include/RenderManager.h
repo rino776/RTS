@@ -1,16 +1,19 @@
 #pragma once
+#include <RenderCommand.h>
+#include <memory>
 
 namespace rendering{
 
-	class RenderManager
+class RenderManager
 {
 public:
 	RenderManager();
 	virtual ~RenderManager();
-	void init();
-	void update();
-	void render();
+	void renderPass();
+	void addRenderCommand(RenderCommand* rc);
 
-
+private:
+	std::vector<RenderCommand> m_renderCommands;
+	std::unique_ptr<ShaderManager> m_shaderManager;
 };
 }

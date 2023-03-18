@@ -50,6 +50,11 @@ int ShaderManager::compileShader(std::string shaderSource, unsigned int type) {
         printf("Invalid Shader Type!");
         return -1;
     }
+
+    if (shaderSource.empty()) {
+        return -1;
+    }
+
     const char* source = shaderSource.c_str();
 
     unsigned int shaderID = glCreateShader(type);
@@ -95,7 +100,7 @@ std::string ShaderManager::loadShaderFromFile(const char* dir) {
         return code.c_str();
     }
 
-    return nullptr;
+    return "";
 
 }
 

@@ -1,13 +1,13 @@
 #pragma once
 
 #include <WindowManager.h>
+#include <RenderManager.h>
 #include <thread>
 #include <memory>
-#include<Entity.h>
-#include <map>
+#include <Entity.h>
 #include <RenderCommand.h>
 #include <Sprite.h>
-#include <ShaderManager.h>
+
 
 
 namespace rendering {
@@ -26,10 +26,9 @@ protected:
 
 private:
 	std::unique_ptr<WindowManager> m_windowManager;
-	std::unique_ptr<ShaderManager> m_shaderManager;
+	std::unique_ptr<RenderManager> m_renderManager;
 	bool m_shouldClose = false;
 	//move this to RenderManager?
-	std::vector<RenderCommand*> m_renderCommands;
 	void updateEntities();
 	std::vector<core::Entity*> m_dirtyEnts;
 

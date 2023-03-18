@@ -1,13 +1,13 @@
 #include "RenderingEngine.h"
-
+#include <RenderingEngine.h>
 using namespace rendering;
 using namespace core;
 
 void RenderingEngine::init() {
-	m_windowManager = std::make_unique<WindowManager>(WindowManager());
+	printf("Started Rendering Thread\n");
+	m_windowManager = std::make_unique<WindowManager>();
 	m_shouldClose = !m_windowManager->createWindow(800,600,"Hello World!");
-	m_shaderManager = std::make_unique<ShaderManager>(ShaderManager());
-
+	m_renderManager = std::make_unique<RenderManager>();
 	renderLoop();
 }
 
@@ -24,10 +24,7 @@ void RenderingEngine::renderLoop() {
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		updateEntities();
-		for (RenderCommand* rc : m_renderCommands) {
-			m_shaderManager->useShader(rc->material());
-			rc->execute();
-		}
+		m_renderManager->renderPass();
 	}
 	cleanup();
 }
@@ -46,7 +43,7 @@ void RenderingEngine::updateEntities() {
 		renderable = e->getComponent(eSprite);
 		if (renderable) {
 			RenderCommand* rc = createSprite((Sprite*)renderable, e->id());
-			m_renderCommands.push_back(rc);
+			m_renderManager->addRenderCommand(rc);
 			continue;
 		}
 	}

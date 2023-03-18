@@ -25,14 +25,10 @@ using namespace core;
 int main() 
 {
 	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine());
-
-	//renderingEngine->init();
-
+	//start the rendering thread
 	std::thread renderingThread = renderingEngine->start();
-	
-	renderingThread.detach();
 
-	printf("Rendering thread detatched \n");
+	
 	std::vector<Entity*> entities;
 
 	Entity* ent = new Entity();
@@ -49,6 +45,8 @@ int main()
 		ent->update();
 	}
 
+	//join the threads back to the main thread
+	renderingThread.join();
 	printf("All Done!\n");
 	return 0;
 }
