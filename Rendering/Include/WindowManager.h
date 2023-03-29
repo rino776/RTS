@@ -5,6 +5,11 @@
 
 namespace rendering {
 
+	typedef struct {
+		int width;
+		int height;
+	} ScreenDetails;
+
 class WindowManager
 {
 public:
@@ -16,12 +21,15 @@ public:
 	bool shouldClose();
 	GLFWwindow* window() { return m_window;};
 
-	
-private:
+	void setDetails(int width, int height) { m_details.width = width; m_details.height = height; }
+	ScreenDetails* getDetails() { return &m_details; }
+	void setDirty(bool dirty) { m_dirty = dirty; }
+	const bool dirty() { return m_dirty; }
 
+private:
+	bool m_dirty;
 	GLFWwindow* m_window;
-	int m_width;
-	int m_height;
+	ScreenDetails m_details;
 };
 
 }

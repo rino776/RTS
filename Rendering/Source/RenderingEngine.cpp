@@ -23,6 +23,13 @@ void RenderingEngine::renderLoop() {
 	while (!m_windowManager->shouldClose()) {
 		//update stuff here
 		m_windowManager->updateWindow();
+
+		if (m_windowManager->dirty()) {
+			m_renderManager->getCamera()->setScreenDetails(m_windowManager->getDetails());
+			m_windowManager->setDirty(false);
+		}
+		
+		//TODO: move these into the render pass?
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
 		glClear(GL_COLOR_BUFFER_BIT);
 		updateEntities();
