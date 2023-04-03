@@ -10,6 +10,7 @@ class Camera
 public:
     Camera();
     glm::mat4 getProjectionMatrix(bool ortho);
+    glm::mat4 getViewMatrix();
 
     void setScreenDetails(ScreenDetails* details) { m_screenDetails = details; }
 
