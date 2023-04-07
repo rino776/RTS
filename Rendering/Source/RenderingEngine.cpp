@@ -21,6 +21,9 @@ std::thread RenderingEngine::start() {
 
 void RenderingEngine::renderLoop() {
 	
+	glEnable(GL_DEPTH_TEST);
+	glDepthFunc(GL_LESS);
+	glDisable(GL_CULL_FACE);
 	while (!m_windowManager->shouldClose()) {
 		//update stuff here
 		m_windowManager->updateWindow();
@@ -32,7 +35,7 @@ void RenderingEngine::renderLoop() {
 		
 		//TODO: move these into the render pass?
 		glClearColor(0.1f, 0.1f, 0.1f, 1.0f);
-		glClear(GL_COLOR_BUFFER_BIT);
+		glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
 		updateEntities();
 		m_renderManager->renderPass();
 	}
@@ -100,11 +103,12 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 {
 	//get vertex and index data
 	std::vector<float> vertexData = mesh->getVertexData();
-	std::vector<int> indices = mesh->getIndexData();
+	std::vector<unsigned int> indices = mesh->getIndexData();
 	//create geometry object, and pass vertex and index data to it
 	Geometry* geometry = new Geometry();
-	geometry->addComponent(vertex, vertexData);
 	geometry->addEBO(indices);
+	geometry->addComponent(vertex, vertexData);
+
 	//create render command and add geometry
 	RenderCommand* rc = new RenderCommand(id);
 	rc->setGeometry(geometry);

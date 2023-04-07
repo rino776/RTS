@@ -37,6 +37,12 @@ int main()
 	//ent->addComponent(new Sprite());	
 	ent->addComponent(new Mesh());
 	entities.push_back(ent);
+
+	Entity* sprite = new Entity();
+	sprite->addComponent(new Transform());
+	sprite->addComponent(new Sprite());
+	//entities.push_back(sprite);
+
 	renderingEngine->setDirtyEntities(entities);
 	entities.clear();
 

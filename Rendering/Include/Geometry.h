@@ -17,7 +17,7 @@ public:
     Geometry();
 
     void addComponent(AttributePointerType type, std::vector<float>& data);
-    void addEBO(std::vector<int>& data);
+    void addEBO(std::vector<unsigned int>& data);
     unsigned int id() { return m_id; }
     int vertexCount() { return m_vertexCount; }
     int indexCount() { return m_indexCount; }

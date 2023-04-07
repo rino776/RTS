@@ -21,7 +21,7 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
-    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), &data[0], GL_STATIC_DRAW);
+    glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
 
     int stride = getStride(type);
     glVertexAttribPointer(0, stride, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
@@ -29,7 +29,7 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
 }
 
 
-void Geometry::addEBO(std::vector<int>& data) {
+void Geometry::addEBO(std::vector<unsigned int>& data) {
     glBindVertexArray(m_id);
 
     glGenBuffers(1, &m_EBO);
