@@ -6,7 +6,8 @@ namespace rendering {
     typedef enum AttributePointerType {
         vertex = 0,
         colour,
-        UV
+        UV,
+        index
     } AttributePointerType;
 
 
@@ -16,15 +17,19 @@ public:
     Geometry();
 
     void addComponent(AttributePointerType type, std::vector<float>& data);
-
+    void addEBO(std::vector<int>& data);
     unsigned int id() { return m_id; }
     int vertexCount() { return m_vertexCount; }
-
+    int indexCount() { return m_indexCount; }
+    bool isIndexed() { return m_isIndexed; }
 private:
     int getStride(AttributePointerType type);
     //the VAO id
     unsigned int m_id;
     int m_vertexCount;
+    int m_indexCount;
+    unsigned int m_EBO;
+    bool m_isIndexed;
 
 };
 }

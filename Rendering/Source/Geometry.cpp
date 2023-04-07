@@ -5,6 +5,7 @@ using namespace rendering;
 
 Geometry::Geometry()
 {
+    m_isIndexed = false;
     m_vertexCount = 0;
     glGenVertexArrays(1, &m_id);
 }
@@ -16,6 +17,7 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
         m_vertexCount = data.size() / 3.0f;
     
     glBindVertexArray(m_id);
+    
     unsigned int VBO;
     glGenBuffers(1, &VBO);
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
@@ -24,6 +26,17 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
     int stride = getStride(type);
     glVertexAttribPointer(0, stride, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
     glEnableVertexAttribArray(type);
+}
+
+
+void Geometry::addEBO(std::vector<int>& data) {
+    glBindVertexArray(m_id);
+
+    glGenBuffers(1, &m_EBO);
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, m_EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, data.size() * sizeof(int), data.data(), GL_STATIC_DRAW);
+    m_isIndexed = true;
+    m_indexCount = data.size();
 }
 
 int Geometry::getStride(AttributePointerType type) {

@@ -13,8 +13,11 @@ RenderCommand::RenderCommand(unsigned int id) {
 
 void RenderCommand::execute() {
     
-    //TODO: setting uniforms, attributes etc
-
     glBindVertexArray(m_geometry->id());
-    glDrawArrays(GL_TRIANGLES, 0, m_geometry->vertexCount());
+    //TODO: setting uniforms, attributes etc
+    if (m_geometry->isIndexed()) {
+        glDrawElements(GL_TRIANGLES, m_geometry->indexCount(), GL_UNSIGNED_INT, 0);
+    }else{
+        glDrawArrays(GL_TRIANGLES, 0, m_geometry->vertexCount());
+    }
 }

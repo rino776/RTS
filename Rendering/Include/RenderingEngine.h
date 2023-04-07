@@ -7,7 +7,7 @@
 #include <Entity.h>
 #include <RenderCommand.h>
 #include <Sprite.h>
-
+#include <Mesh.h>
 
 
 namespace rendering {
@@ -23,6 +23,7 @@ public:
 
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
+	RenderCommand* createMesh(core::Mesh* mesh, unsigned int id);
 
 private:
 	std::unique_ptr<WindowManager> m_windowManager;

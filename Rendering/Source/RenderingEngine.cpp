@@ -2,6 +2,7 @@
 #include <RenderingEngine.h>
 #include <glm/ext/matrix_transform.hpp>
 #include <Transform.h>
+
 using namespace rendering;
 using namespace core;
 
@@ -46,7 +47,7 @@ void RenderingEngine::updateEntities() {
 		Component* renderable;
 		renderable = e->getComponent(eMesh);
 		if (renderable) {
-			//createMeshRC
+			rc = createMesh((Mesh*)renderable, e->id());
 		}
 		renderable = e->getComponent(eSprite);
 		if (renderable) {
@@ -81,7 +82,7 @@ RenderCommand* RenderingEngine::createSprite(Sprite* sprite, unsigned int id) {
 		 0.5f,  0.5f, 0.0f,
 
 		-0.5f,  -0.5f, 0.0f,
-		0.5f,  0.5f, 0.0f,
+		 0.5f,  0.5f, 0.0f,
 		-0.5f,  0.5f, 0.0f,
 	};
 
@@ -90,6 +91,21 @@ RenderCommand* RenderingEngine::createSprite(Sprite* sprite, unsigned int id) {
 	vertices.insert(vertices.end(), &vertexArray[0], &vertexArray[18]);
 	Geometry* geometry = new Geometry();
 	geometry->addComponent(vertex, vertices);
+	RenderCommand* rc = new RenderCommand(id);
+	rc->setGeometry(geometry);
+	return rc;
+}
+
+RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
+{
+	//get vertex and index data
+	std::vector<float> vertexData = mesh->getVertexData();
+	std::vector<int> indices = mesh->getIndexData();
+	//create geometry object, and pass vertex and index data to it
+	Geometry* geometry = new Geometry();
+	geometry->addComponent(vertex, vertexData);
+	geometry->addEBO(indices);
+	//create render command and add geometry
 	RenderCommand* rc = new RenderCommand(id);
 	rc->setGeometry(geometry);
 	return rc;

@@ -135,12 +135,16 @@
     <ClInclude Include="..\Core\Include\Entity.h" />
     <ClInclude Include="..\Core\Include\Sprite.h" />
     <ClInclude Include="..\Core\Include\Transform.h" />
+    <ClInclude Include="Include\Mesh.h" />
+    <ClInclude Include="Include\Point.h" />
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="..\Core\Source\Component.cpp" />
     <ClCompile Include="..\Core\Source\Entity.cpp" />
     <ClCompile Include="..\Core\Source\Sprite.cpp" />
     <ClCompile Include="..\Core\Source\Transform.cpp" />
+    <ClCompile Include="Source\Mesh.cpp" />
+    <ClCompile Include="Source\Point.cpp" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

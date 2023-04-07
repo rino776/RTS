@@ -4,6 +4,7 @@
 #include <Entity.h>
 #include <Transform.h>
 #include <Sprite.h>
+#include <Mesh.h>
 
 /*
 * Explanation of Namespaces:
@@ -33,8 +34,8 @@ int main()
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
-	ent->addComponent(new Sprite());	
-
+	//ent->addComponent(new Sprite());	
+	ent->addComponent(new Mesh());
 	entities.push_back(ent);
 	renderingEngine->setDirtyEntities(entities);
 	entities.clear();
