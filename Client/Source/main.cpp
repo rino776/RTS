@@ -5,6 +5,18 @@
 #include <Transform.h>
 #include <Sprite.h>
 #include <Mesh.h>
+/*
+* TODO List:
+* - user input (camera)
+* - basic game server (how the hell to do that? need more research lol)
+* - load meshes from file (.obj?)
+* - lighting (and probs different types of lighting
+* - load sprites from file
+* - textures
+* 
+*/
+
+
 
 /*
 * Explanation of Namespaces:
