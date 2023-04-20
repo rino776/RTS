@@ -8,6 +8,7 @@
 #include <RenderCommand.h>
 #include <Sprite.h>
 #include <Mesh.h>
+#include <mutex>
 
 
 namespace rendering {
@@ -21,6 +22,7 @@ public:
 	bool shouldClose() { return m_shouldClose; };
 	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
 
+
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
 	RenderCommand* createMesh(core::Mesh* mesh, unsigned int id);
@@ -32,6 +34,7 @@ private:
 	//move this to RenderManager?
 	void updateEntities();
 	std::vector<core::Entity*> m_dirtyEnts;
+
 
 
 

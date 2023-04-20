@@ -6,6 +6,9 @@
 using namespace rendering;
 using namespace core;
 
+//so it looks like mutexes have to be global scope?
+std::mutex g_renderingMutex;
+
 void RenderingEngine::init() {
 	printf("Started Rendering Thread\n");
 	m_windowManager = std::make_unique<WindowManager>();
@@ -43,6 +46,7 @@ void RenderingEngine::renderLoop() {
 }
 
 void RenderingEngine::updateEntities() {
+	std::lock_guard<std::mutex>lock(g_renderingMutex);
 	for (Entity* e : m_dirtyEnts) {
 		//we probably want to check id here as well, to see if it is a new RC or an updated one...
 		//or should we always create new ones, and delete the old ones?
@@ -74,6 +78,7 @@ void RenderingEngine::updateEntities() {
 }
 
 void RenderingEngine::setDirtyEntities(std::vector<Entity*>& dirtyEnts) {
+	std::lock_guard<std::mutex>lock(g_renderingMutex);
 	m_dirtyEnts.insert(m_dirtyEnts.end(), dirtyEnts.begin(), dirtyEnts.end());
 }
 
