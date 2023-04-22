@@ -8,6 +8,7 @@ class Mesh :
 {
 public:
     Mesh();
+    Mesh(std::vector<Point> vertices, std::vector<unsigned int> m_indices);
     //TODO: load in from file (obj file?)
     std::vector<float> getVertexData();
     std::vector<unsigned int> getIndexData();

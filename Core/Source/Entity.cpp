@@ -18,7 +18,8 @@ void Entity::update() {
 }
 
 bool Entity::addComponent(Component* component) {
-
+    if (!component)
+        return false;
     auto c = m_components.emplace(component->getType(), component);
     return c.second;
 }

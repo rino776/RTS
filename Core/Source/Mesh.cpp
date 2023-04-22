@@ -34,6 +34,14 @@ Mesh::Mesh() {
 
 }
 
+Mesh::Mesh(std::vector<Point> vertices, std::vector<unsigned int> indices) {
+    m_type = eMesh;
+    m_vertices = vertices;
+    m_indices = indices;
+    m_indexed = true;
+    m_isTriangulated = true;
+}
+
 std::vector<float> Mesh::getVertexData()
 {
     std::vector<float> vertexData;

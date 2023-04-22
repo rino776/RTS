@@ -1,10 +1,12 @@
 #include <memory>
 #include <thread>
+
 #include <RenderingEngine.h>
+#include <ObjLoader.h>
 #include <Entity.h>
 #include <Transform.h>
 #include <Sprite.h>
-#include <Mesh.h>
+
 /*
 * TODO List:
 * - user input (camera)
@@ -16,12 +18,17 @@
 * 
 */
 
-
+/*
+ * note: if adding new projects
+ * right click client -> add -> references
+ * 
+ */
 
 /*
 * Explanation of Namespaces:
 * rendering - anything specific to the rendering
 * core - anything that needs to be shared accross namespaces
+* loader - anything that loads data from files.
 * 
 * Possible future namespaces:
 * client
@@ -34,6 +41,7 @@
 */
 using namespace rendering;
 using namespace core;
+using namespace loader;
 
 int main() 
 {
@@ -47,7 +55,7 @@ int main()
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
 	//ent->addComponent(new Sprite());	
-	ent->addComponent(new Mesh());
+	ent->addComponent(ObjLoader::loadFromFile("Models/teapot.obj"));
 	entities.push_back(ent);
 
 	Entity* sprite = new Entity();

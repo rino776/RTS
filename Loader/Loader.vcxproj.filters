@@ -15,7 +15,12 @@
     </Filter>
   </ItemGroup>
   <ItemGroup>
-    <ClCompile Include="..\Client\Source\main.cpp">
+    <ClInclude Include="Include\ObjLoader.h">
+      <Filter>Header Files</Filter>
+    </ClInclude>
+  </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="Source\ObjLoader.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>
