@@ -11,7 +11,7 @@
 * TODO List:
 * - user input (camera)
 * - basic game server (how the hell to do that? need more research lol)
-* - finish loading meshes from .obj files (extract uv and normal data)
+* - finish loading meshes from .obj files (deal with non-triangulated meshes)
 * - add support for other mesh files?
 * - lighting (and probs different types of lighting
 * - load sprites from file
@@ -56,7 +56,7 @@ int main()
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
 	//ent->addComponent(new Sprite());	
-	ent->addComponent(ObjLoader::loadFromFile("Models/sphere.obj"));
+	ent->addComponent(ObjLoader::loadFromFile("Models/sphereTrianglulated.obj"));
 	entities.push_back(ent);
 
 	Entity* sprite = new Entity();
