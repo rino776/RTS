@@ -11,10 +11,12 @@ uniform mat4 Model;
 out vec3 ourColour;
 out vec3 normal;
 out vec2 UV;
+out vec3 fragPos;
 
 void main(){
     gl_Position = Projection * View * Model * vec4(inPos, 1.0);
     ourColour = vec3(1.0f,0.5f,1.0f);
     normal = inNormal;
     UV = inUV;
+    fragPos = vec3(Model * vec4(inPos, 1.0));
 }

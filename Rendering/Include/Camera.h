@@ -11,9 +11,10 @@ public:
     Camera();
     glm::mat4 getProjectionMatrix(bool ortho);
     glm::mat4 getViewMatrix();
+    glm::vec3 getPos() { return m_cameraPos; }
 
     void setScreenDetails(ScreenDetails* details) { m_screenDetails = details; }
-
+    
 private:
     glm::vec3 m_cameraPos;
     glm::vec3 m_cameraDir;

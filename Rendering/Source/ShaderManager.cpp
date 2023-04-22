@@ -126,5 +126,16 @@ void ShaderManager::bindAttribute(ShaderType type, const std::string& name, glm:
     else {
         printf("Error: could not find shader!");
     }
+}
 
-   }
+void ShaderManager::bindAttribute(ShaderType type, const std::string& name, glm::vec3 value) const 
+{
+
+    auto location = m_shaders.find(type);
+    if (location != m_shaders.end()) {
+        glUniform3fv(glGetUniformLocation(location->second, name.c_str()), 1, glm::value_ptr(value));
+    }else {
+        printf("Ettot: could not find shader!");
+    }
+
+}
