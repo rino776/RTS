@@ -30,16 +30,21 @@ Mesh::Mesh() {
     std::copy(std::begin(indices), std::end(indices), std::back_inserter(m_indices));
    
     m_indexed = true;
-    m_isTriangulated = false;
 
 }
 
-Mesh::Mesh(std::vector<Point> vertices, std::vector<unsigned int> indices) {
+Mesh::Mesh(std::vector<Point> vertices, std::vector<Point> normals, std::vector<Point2D> uv, std::vector<unsigned int> indices, std::vector<unsigned int> normalIndices, std::vector<unsigned int> textureIndices) {
     m_type = eMesh;
+
     m_vertices = vertices;
+    m_normals = normals;
+    m_textureCoords = uv;
+    
     m_indices = indices;
+    m_normalIndices = normalIndices;
+    m_textureIndices = textureIndices;
+    
     m_indexed = true;
-    m_isTriangulated = true;
 }
 
 std::vector<float> Mesh::getVertexData()
@@ -55,9 +60,30 @@ std::vector<float> Mesh::getVertexData()
     return vertexData;
 }
 
-std::vector<unsigned int> Mesh::getIndexData()
+std::vector<float> Mesh::getNormalData()
 {
-    return m_indices;
+    std::vector<float> normalData;
+
+    for (Point& p : m_normals) {
+        normalData.push_back((float)p.x());
+        normalData.push_back((float)p.y());
+        normalData.push_back((float)p.z());
+    }
+
+    return normalData;
+}
+
+
+std::vector<float> Mesh::getUVData() {
+    std::vector<float> uvData;
+
+    for (Point2D& p : m_textureCoords) {
+        uvData.push_back(p.x());
+        uvData.push_back(p.y());
+    }
+
+    return uvData;
+
 }
 
 

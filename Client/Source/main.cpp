@@ -11,7 +11,8 @@
 * TODO List:
 * - user input (camera)
 * - basic game server (how the hell to do that? need more research lol)
-* - load meshes from file (.obj?)
+* - finish loading meshes from .obj files (extract uv and normal data)
+* - add support for other mesh files?
 * - lighting (and probs different types of lighting
 * - load sprites from file
 * - textures
@@ -55,7 +56,7 @@ int main()
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
 	//ent->addComponent(new Sprite());	
-	ent->addComponent(ObjLoader::loadFromFile("Models/teapot.obj"));
+	ent->addComponent(ObjLoader::loadFromFile("Models/sphere.obj"));
 	entities.push_back(ent);
 
 	Entity* sprite = new Entity();
