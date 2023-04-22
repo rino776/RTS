@@ -28,9 +28,8 @@ Mesh::Mesh() {
     // Copy index array to vector
     m_indices.reserve(std::size(indices));
     std::copy(std::begin(indices), std::end(indices), std::back_inserter(m_indices));
-   
-    m_indexed = true;
 
+    m_shouldUnroll = false;
 }
 
 Mesh::Mesh(std::vector<Point> vertices, std::vector<Point> normals, std::vector<Point2D> uv, std::vector<unsigned int> indices, std::vector<unsigned int> normalIndices, std::vector<unsigned int> textureIndices) {
@@ -43,8 +42,8 @@ Mesh::Mesh(std::vector<Point> vertices, std::vector<Point> normals, std::vector<
     m_indices = indices;
     m_normalIndices = normalIndices;
     m_textureIndices = textureIndices;
-    
-    m_indexed = true;
+
+    m_shouldUnroll = true;
 }
 
 std::vector<float> Mesh::getVertexData()

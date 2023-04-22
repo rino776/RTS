@@ -4,7 +4,8 @@
 #include <glm/ext/matrix_float4x4.hpp>
 namespace rendering {
     typedef enum ShaderType {
-        sBasic
+        sBasic,
+        sLighted
     } ShaderType;
 
 class ShaderManager

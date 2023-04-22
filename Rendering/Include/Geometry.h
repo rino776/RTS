@@ -6,8 +6,10 @@ namespace rendering {
     typedef enum AttributePointerType {
         vertex = 0,
         colour,
+        normal,
         UV,
-        index
+        index,
+        
     } AttributePointerType;
 
 

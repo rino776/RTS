@@ -5,9 +5,9 @@ using namespace rendering;
 
 
 
-RenderCommand::RenderCommand(unsigned int id) {
+RenderCommand::RenderCommand(unsigned int id, ShaderType material) {
     m_id = id;
-    m_material = sBasic;
+    m_material = material;
     m_geometry = nullptr;
 }
 

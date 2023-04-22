@@ -20,6 +20,8 @@ Mesh* ObjLoader::loadFromFile(const char* path) {
     std::vector<unsigned int> textureIndices;
     std::vector<unsigned int> normalIndices;
 
+    int unhandledLines = 0;
+
     if (file.is_open()) {
         while (getline(file, line)) {
             
@@ -59,12 +61,12 @@ Mesh* ObjLoader::loadFromFile(const char* path) {
             if (line.find("vn ") == 0) {
                 //remove the v from the beginning
                 line = line.substr(3);
+
                 float x = std::stof(line.substr(0, line.find(' ')));
                 line = line.substr(line.find(' ') + 1);
                 float y = std::stof(line.substr(0, line.find(' ')));
                 line = line.substr(line.find(' ') + 1);
                 float z = std::stof(line.substr(0, line.find(' ')));
-                line = line.substr(line.find(' ') + 1);
 
                 normals.push_back(Point(x, y, z));
                 continue;
@@ -91,12 +93,15 @@ Mesh* ObjLoader::loadFromFile(const char* path) {
                     
                     //if it is 0 it means the file didn't have it
                     if(index->uvIndex > 0)
-                        textureIndices.push_back(index->uvIndex);
+                        textureIndices.push_back(index->uvIndex - 1);
                     
                     if(index->normalIndex > 0)
-                        normalIndices.push_back(index->normalIndex);
+                        normalIndices.push_back(index->normalIndex - 1);
                 }
-            } 
+                continue;
+            }
+            unhandledLines++;
+
         }
 
         file.close();

@@ -7,7 +7,7 @@ namespace rendering {
 class RenderCommand
 {
 public:
-    RenderCommand(unsigned int id);
+    RenderCommand(unsigned int id, ShaderType material = sBasic);
 
     void execute();
 

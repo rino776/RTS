@@ -24,7 +24,7 @@ void Geometry::addComponent(AttributePointerType type, std::vector<float>& data)
     glBufferData(GL_ARRAY_BUFFER, data.size() * sizeof(float), data.data(), GL_STATIC_DRAW);
 
     int stride = getStride(type);
-    glVertexAttribPointer(0, stride, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
+    glVertexAttribPointer(type, stride, GL_FLOAT, GL_FALSE, stride * sizeof(float), (void*)0);
     glEnableVertexAttribArray(type);
 }
 
@@ -47,6 +47,8 @@ int Geometry::getStride(AttributePointerType type) {
         return 3;
     case UV:
         return 2;
+    case normal:
+        return 3;
     default:
         return 3;
     }

@@ -21,6 +21,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Shaders", "Shaders", "{41F1
 	ProjectSection(SolutionItems) = preProject
 		x64\Debug\Shaders\basic.frag = x64\Debug\Shaders\basic.frag
 		x64\Debug\Shaders\basic.vert = x64\Debug\Shaders\basic.vert
+		x64\Debug\Shaders\lighted.frag = x64\Debug\Shaders\lighted.frag
+		x64\Debug\Shaders\lighted.vert = x64\Debug\Shaders\lighted.vert
 	EndProjectSection
 EndProject
 Project("{8BC9CEB8-8B4A-11D0-8D11-00A0C91BC942}") = "Loader", "Loader\Loader.vcxproj", "{760E3507-C4B6-436B-B7CC-F3568F3165D8}"

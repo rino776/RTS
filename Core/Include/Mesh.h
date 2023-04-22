@@ -17,6 +17,8 @@ public:
     std::vector<unsigned int> getIndexData(){ return m_indices; }
     std::vector<unsigned int> getNormalIndexData() { return m_normalIndices; }
     std::vector<unsigned int> getUVIndexData() { return m_textureIndices; }
+    bool shouldUnroll() { return m_shouldUnroll;}
+
 private:
     //TODO: change to wrapper of point array?
     std::vector<Point> m_vertices;
@@ -25,7 +27,7 @@ private:
     std::vector<unsigned int> m_indices;
     std::vector<unsigned int> m_normalIndices;
     std::vector<unsigned int> m_textureIndices;
-    bool m_indexed;
+    bool m_shouldUnroll;
 };
 
 }

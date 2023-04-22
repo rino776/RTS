@@ -8,6 +8,7 @@ using namespace rendering;
 
 ShaderManager::ShaderManager() {
     addShader(sBasic, "Shaders/basic.vert", "Shaders/basic.frag");
+    addShader(sLighted, "Shaders/lighted.vert", "shaders/lighted.frag");
 }
 
 void ShaderManager::addShader(ShaderType name, const char* vertexDir, const char* fragmentDir) {

@@ -109,15 +109,63 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 	//get vertex and index data
 	std::vector<float> vertexData = mesh->getVertexData();
 	std::vector<unsigned int> indices = mesh->getIndexData();
+	std::vector<unsigned int> normalIndices = mesh->getNormalIndexData();
+	std::vector<unsigned int> textureIndices = mesh->getUVIndexData();
 	//create geometry object, and pass vertex and index data to it
 	Geometry* geometry = new Geometry();
-	geometry->addEBO(indices);
-	geometry->addComponent(vertex, vertexData);
+	if (mesh->shouldUnroll()) {
+		std::vector<float> unrolledVertexData;
+		for (unsigned int i : indices) {
+			unsigned int index = i * 3;
+			unrolledVertexData.push_back(vertexData.at(index));
+			unrolledVertexData.push_back(vertexData.at(index + 1));
+			unrolledVertexData.push_back(vertexData.at(index + 2));
+		}
+		geometry->addComponent(vertex, unrolledVertexData);
 
-	//create render command and add geometry
-	RenderCommand* rc = new RenderCommand(id);
-	rc->setGeometry(geometry);
-	return rc;
+		if (!normalIndices.empty()) {
+			std::vector<float> normals = mesh->getNormalData();
+			std::vector<float> newNormals;
+
+			for (unsigned int i : normalIndices) {
+				unsigned int index = i * 3;
+				newNormals.push_back(normals.at(index));
+				newNormals.push_back(normals.at(index + 1));
+				newNormals.push_back(normals.at(index + 2));
+			}
+			
+			geometry->addComponent(normal, newNormals);
+		}
+
+		if (!textureIndices.empty()) {
+			std::vector<float> uvData = mesh->getUVData();
+			std::vector<float> newUVData;
+			for (unsigned int i : textureIndices) {
+				unsigned int index = i * 2;
+				newUVData.push_back(uvData.at(index));
+				newUVData.push_back(uvData.at(index + 1));
+			}
+			geometry->addComponent(UV, newUVData);
+		}
+
+		//create render command and add geometry
+		RenderCommand* rc = new RenderCommand(id,sLighted);
+		rc->setGeometry(geometry);
+		return rc;
+
+	} else {
+		geometry->addComponent(vertex, vertexData);
+		if (!indices.empty())
+			geometry->addEBO(indices);
+
+
+		//create render command and add geometry
+		RenderCommand* rc = new RenderCommand(id);
+		rc->setGeometry(geometry);
+		return rc;
+	}
+	
+
 }
 
 void RenderingEngine::cleanup() {
