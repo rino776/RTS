@@ -14,6 +14,9 @@ public:
     int id() { return m_id; }
     void setID(int id) { m_id = id; }
 
+    bool isDirty() { return m_isDirty; }
+    void setDirty(bool isDirty) { m_isDirty = isDirty; }
+
 private:
     int m_id;
     //whether this entity needs to be re-rendered or not

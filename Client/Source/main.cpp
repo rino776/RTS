@@ -12,8 +12,9 @@
 * - user input (camera)
 * - basic game server (how the hell to do that? need more research lol)
 * - finish loading meshes from .obj files (deal with non-triangulated meshes)
+* - generate normals for meshes that don't have them
 * - add support for other mesh files?
-* - lighting (and probs different types of lighting
+* - different types of lighting?
 * - load sprites from file
 * - textures
 * 
@@ -52,11 +53,12 @@ int main()
 
 	
 	std::vector<Entity*> entities;
+	std::vector<Entity*> dirtyEnts;
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform());
 	//ent->addComponent(new Sprite());	
-	ent->addComponent(ObjLoader::loadFromFile("Models/sphereTrianglulated.obj"));
+	ent->addComponent(ObjLoader::loadFromFile("Models/teapot.obj"));
 	entities.push_back(ent);
 
 	Entity* sprite = new Entity();
@@ -69,8 +71,19 @@ int main()
 
 	while (!renderingEngine->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::seconds(1));
-		printf("waiting...\n");
-		ent->update();
+		for (Entity* e : entities) {
+			e->update();
+
+			if (e->isDirty()) {
+				dirtyEnts.push_back(e);
+			}
+		}
+
+		if (!dirtyEnts.empty()) {
+			renderingEngine->setDirtyEntities(dirtyEnts);
+			dirtyEnts.clear();
+		}
+
 	}
 
 	//join the threads back to the main thread

@@ -70,8 +70,11 @@ void RenderingEngine::updateEntities() {
 			rc->setModelMatrix(transform->getTransformMatrix());
 		}
 	
-		if(rc)
+		if(rc){
 			m_renderManager->addRenderCommand(rc);
+			e->setDirty(false);
+		}
+		
 	}
 
 	m_dirtyEnts.clear();
@@ -122,7 +125,9 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 			unrolledVertexData.push_back(vertexData.at(index + 2));
 		}
 		geometry->addComponent(vertex, unrolledVertexData);
-
+		//TODO: generate normals
+		//the vertices are unrolled at this point, and we can assum that every 3 points will be 1 face...
+		//need to take the cross product...
 		if (!normalIndices.empty()) {
 			std::vector<float> normals = mesh->getNormalData();
 			std::vector<float> newNormals;
@@ -135,8 +140,35 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 			}
 			
 			geometry->addComponent(normal, newNormals);
-		}
+		} else {
+			std::vector<float> normals;
+			for (int i = 0; i < unrolledVertexData.size(); i += 9) {
+				glm::vec3 point0 = glm::vec3(unrolledVertexData.at(i), unrolledVertexData.at(i + 1), unrolledVertexData.at(i + 2));
+				glm::vec3 point1 = glm::vec3(unrolledVertexData.at(i + 3), unrolledVertexData.at(i + 4), unrolledVertexData.at(i + 5));
+				glm::vec3 point2 = glm::vec3(unrolledVertexData.at(i + 6), unrolledVertexData.at(i + 7), unrolledVertexData.at(i + 8));
 
+				glm::vec3 a = point1 - point0;
+				glm::vec3 b = point2 - point0;
+
+				glm::vec3 normal = glm::cross(a, b);
+				normal = glm::normalize(normal);
+				
+				normals.push_back(normal.x);
+				normals.push_back(normal.y);
+				normals.push_back(normal.z);
+				
+				normals.push_back(normal.x);
+				normals.push_back(normal.y);
+				normals.push_back(normal.z);
+
+				normals.push_back(normal.x);
+				normals.push_back(normal.y);
+				normals.push_back(normal.z);
+
+			}
+
+			geometry->addComponent(normal, normals);
+		}
 		if (!textureIndices.empty()) {
 			std::vector<float> uvData = mesh->getUVData();
 			std::vector<float> newUVData;
