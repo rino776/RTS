@@ -2,6 +2,7 @@
 
 #include <WindowManager.h>
 #include <RenderManager.h>
+#include <InputManager.h>
 #include <thread>
 #include <memory>
 #include <Entity.h>
@@ -15,13 +16,14 @@ namespace rendering {
 class RenderingEngine
 {
 public:
+	RenderingEngine(std::shared_ptr<core::InputManager>);
 	void init();
 	std::thread start();
 	void cleanup();
 	void renderLoop();
 	bool shouldClose() { return m_shouldClose; };
 	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
-
+	
 
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
@@ -34,6 +36,8 @@ private:
 	//move this to RenderManager?
 	void updateEntities();
 	std::vector<core::Entity*> m_dirtyEnts;
+
+	std::shared_ptr<core::InputManager> m_inputManager;
 
 
 

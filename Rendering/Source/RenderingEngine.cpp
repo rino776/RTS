@@ -9,9 +9,13 @@ using namespace core;
 //so it looks like mutexes have to be global scope?
 std::mutex g_renderingMutex;
 
+RenderingEngine::RenderingEngine(std::shared_ptr<InputManager> inputManager) {
+	m_inputManager = inputManager;
+}
+
 void RenderingEngine::init() {
 	printf("Started Rendering Thread\n");
-	m_windowManager = std::make_unique<WindowManager>();
+	m_windowManager = std::make_unique<WindowManager>(m_inputManager);
 	m_shouldClose = !m_windowManager->createWindow(800,600,"Hello World!");
 	m_renderManager = std::make_unique<RenderManager>();
 	renderLoop();
@@ -74,7 +78,6 @@ void RenderingEngine::updateEntities() {
 			m_renderManager->addRenderCommand(rc);
 			e->setDirty(false);
 		}
-		
 	}
 
 	m_dirtyEnts.clear();

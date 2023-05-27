@@ -47,7 +47,10 @@ using namespace loader;
 
 int main() 
 {
-	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine());
+	std::shared_ptr<InputManager> inputManager = std::make_shared<InputManager>(InputManager());
+	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine(inputManager));
+
+
 	//start the rendering thread
 	std::thread renderingThread = renderingEngine->start();
 
@@ -70,7 +73,7 @@ int main()
 	entities.clear();
 
 	while (!renderingEngine->shouldClose()) {
-		std::this_thread::sleep_for(std::chrono::seconds(1));
+		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		for (Entity* e : entities) {
 			e->update();
 
@@ -82,6 +85,10 @@ int main()
 		if (!dirtyEnts.empty()) {
 			renderingEngine->setDirtyEntities(dirtyEnts);
 			dirtyEnts.clear();
+		}
+
+		if (inputManager->getKeyDown(key_w)) {
+			printf("W key pressed! \n");
 		}
 
 	}

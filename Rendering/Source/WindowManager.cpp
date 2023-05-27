@@ -1,6 +1,7 @@
 #include "WindowManager.h"
 
 using namespace rendering;
+using namespace core;
 
 static void framebuffer_size_callback(GLFWwindow* window, int width, int height) {
 	//need some way to trigger an update to the member variables :/
@@ -13,6 +14,18 @@ static void framebuffer_size_callback(GLFWwindow* window, int width, int height)
 		manager->setDetails(width, height);
 		manager->setDirty(true);
 	}
+}
+
+static void key_callback(GLFWwindow* window, int key, int scancode, int action, int mods) {
+	WindowManager* manager = (WindowManager*)(glfwGetWindowUserPointer(window));
+
+	if (manager && action != GLFW_REPEAT) {
+		manager->getInputManager()->setKey(key, action);
+	}
+}
+
+WindowManager::WindowManager(InputManagerPtr inputManager) {
+	m_inputManager = inputManager;
 }
 
 bool WindowManager::createWindow(int width, int height, const char* title) {
@@ -47,11 +60,10 @@ bool WindowManager::createWindow(int width, int height, const char* title) {
 	glfwSetWindowUserPointer(m_window, (void*)this);
 
 	glfwSetFramebufferSizeCallback(m_window, framebuffer_size_callback);
+	glfwSetKeyCallback(m_window, key_callback);
 	
 	return true;
 }
-
-
 
 void WindowManager::updateWindow() {
 	glfwSwapBuffers(m_window);
