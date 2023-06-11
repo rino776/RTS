@@ -22,12 +22,10 @@ void RenderingEngine::init() {
 }
 
 std::thread RenderingEngine::start() {
-	
 	return std::thread(&RenderingEngine::init, this);
 }
 
 void RenderingEngine::renderLoop() {
-	
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glDisable(GL_CULL_FACE);
@@ -89,7 +87,6 @@ void RenderingEngine::setDirtyEntities(std::vector<Entity*>& dirtyEnts) {
 }
 
 RenderCommand* RenderingEngine::createSprite(Sprite* sprite, unsigned int id) {
-	
 	float vertexArray[] = {
 		-0.5f, -0.5f, 0.0f,
 		 0.5f, -0.5f, 0.0f,
@@ -167,7 +164,6 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 				normals.push_back(normal.x);
 				normals.push_back(normal.y);
 				normals.push_back(normal.z);
-
 			}
 
 			geometry->addComponent(normal, normals);
@@ -199,7 +195,6 @@ RenderCommand* RenderingEngine::createMesh(Mesh* mesh, unsigned int id)
 		rc->setGeometry(geometry);
 		return rc;
 	}
-	
 
 }
 

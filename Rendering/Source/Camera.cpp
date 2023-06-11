@@ -4,13 +4,10 @@
 
 
 using namespace rendering;
-
+using namespace core;
 Camera::Camera() {
-    m_cameraPos = glm::vec3(0);
-    m_cameraDir = glm::normalize(m_cameraPos - m_cameraTarget);
-    glm::vec3 worldup = glm::vec3(0.0f, 1.0f, 0.0f);
-    m_cameraRight = glm::normalize(glm::cross(worldup, m_cameraDir));
-    m_cameraUp = glm::cross(m_cameraDir, m_cameraRight);
+    m_cameraTransform = new Transform(glm::vec3(0.0,0.0,6.0));
+    m_screenDetails = nullptr;
 }
 
 glm::mat4 Camera::getProjectionMatrix(bool ortho)
@@ -33,16 +30,13 @@ glm::mat4 Camera::getProjectionMatrix(bool ortho)
 
 }
 
-
 glm::mat4 Camera::getViewMatrix() {
-
-    // return glm::lookAt(m_cameraPos, m_cameraPos + m_cameraTarget, m_cameraUp);
-
     glm::mat4 view = glm::mat4(1.0);
 
-    view = glm::translate(view, glm::vec3(-1.0f,-1.0f,-6.0f));
-    view = glm::rotate(view, glm::radians(25.0f), glm::vec3(1, 0, 0));
-    view = glm::rotate(view, glm::radians(-25.0f), glm::vec3(0, 1, 0));
+    view = glm::translate(view, -m_cameraTransform->Position());
+    
+    //view = glm::rotate(view, glm::radians(25.0f), glm::vec3(1, 0, 0));
+    //view = glm::rotate(view, glm::radians(-25.0f), glm::vec3(0, 1, 0));
 
     return view;
 }

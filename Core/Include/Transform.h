@@ -9,8 +9,8 @@ class Transform :
     public Component
 {
 public:
+    Transform(glm::vec3 position);
     Transform();
-    
     glm::vec3 Position() { return m_position;};
     glm::vec3 Rotation() { return m_rotation;};
     glm::vec3 Scale() { return m_scale;}

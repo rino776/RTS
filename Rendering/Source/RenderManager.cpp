@@ -18,7 +18,7 @@ void RenderManager::renderPass()
 		m_shaderManager->bindAttribute(rc.material(), "View", m_Camera->getViewMatrix());
 		m_shaderManager->bindAttribute(rc.material(), "Projection", m_Camera->getProjectionMatrix(false));
 		m_shaderManager->bindAttribute(rc.material(), "lightPos", glm::vec3(3.0f,5.0f,5.0f));
-		m_shaderManager->bindAttribute(rc.material(), "viewPos", m_Camera->getPos());
+		m_shaderManager->bindAttribute(rc.material(), "viewPos", -m_Camera->getTransform()->Position());
 		rc.execute();
 	}
 }

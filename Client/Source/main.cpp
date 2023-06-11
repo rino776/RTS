@@ -59,7 +59,7 @@ int main()
 	std::vector<Entity*> dirtyEnts;
 
 	Entity* ent = new Entity();
-	ent->addComponent(new Transform());
+	ent->addComponent(new Transform(glm::vec3(0.0, -0.7, -4.0)));
 	//ent->addComponent(new Sprite());	
 	ent->addComponent(ObjLoader::loadFromFile("Models/teapot.obj"));
 	entities.push_back(ent);
@@ -85,10 +85,6 @@ int main()
 		if (!dirtyEnts.empty()) {
 			renderingEngine->setDirtyEntities(dirtyEnts);
 			dirtyEnts.clear();
-		}
-
-		if (inputManager->getKeyDown(key_w)) {
-			printf("W key pressed! \n");
 		}
 
 	}
