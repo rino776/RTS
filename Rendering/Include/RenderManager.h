@@ -12,7 +12,7 @@ public:
 	virtual ~RenderManager();
 	void renderPass();
 	void addRenderCommand(RenderCommand* rc);
-	std::unique_ptr<Camera>& getCamera() { return m_Camera; }
+	Camera* getCamera() { return m_Camera.get(); }
 
 private:
 	std::vector<RenderCommand> m_renderCommands;

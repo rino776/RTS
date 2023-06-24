@@ -6,10 +6,11 @@
 #include <Entity.h>
 #include <Transform.h>
 #include <Sprite.h>
+#include <CameraController.h>
 
 /*
 * TODO List:
-* - user input (camera)
+* - improve camera controlls (mouse)
 * - basic game server (how the hell to do that? need more research lol)
 * - finish loading meshes from .obj files (deal with non-triangulated meshes)
 * - generate normals for meshes that don't have them
@@ -69,17 +70,30 @@ int main()
 	sprite->addComponent(new Sprite());
 	//entities.push_back(sprite);
 
-	renderingEngine->setDirtyEntities(entities);
-	entities.clear();
+	CameraController* cam = new CameraController();
+	entities.push_back(cam);
 
+	renderingEngine->setDirtyEntities(entities);
+
+	for (Entity* e : entities) {
+		e->setInputManager(inputManager);
+	}
+	
 	while (!renderingEngine->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
+		
 		for (Entity* e : entities) {
 			e->update();
 
 			if (e->isDirty()) {
 				dirtyEnts.push_back(e);
 			}
+		}
+
+		//special for just the cameraController
+		if (cam->isDirty()) {
+			Transform* cameraTransform = (Transform*)(cam->getComponent(eTransform));
+			renderingEngine->setCameraTransform(cameraTransform);
 		}
 
 		if (!dirtyEnts.empty()) {

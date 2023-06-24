@@ -25,6 +25,16 @@ std::thread RenderingEngine::start() {
 	return std::thread(&RenderingEngine::init, this);
 }
 
+void RenderingEngine::setCameraTransform(Transform* transform) {
+	std::lock_guard<std::mutex>lock(g_renderingMutex);
+	if(m_renderManager)
+		m_renderManager->getCamera()->setPos(transform);
+}
+
+Transform* RenderingEngine::getCameraTransform() {
+	return m_renderManager->getCamera()->getTransform();
+}
+
 void RenderingEngine::renderLoop() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
@@ -50,9 +60,14 @@ void RenderingEngine::renderLoop() {
 void RenderingEngine::updateEntities() {
 	std::lock_guard<std::mutex>lock(g_renderingMutex);
 	for (Entity* e : m_dirtyEnts) {
+		
+		//we have handled the entity (or are about to I guess)
+		e->setDirty(false);
+
+		
 		//we probably want to check id here as well, to see if it is a new RC or an updated one...
 		//or should we always create new ones, and delete the old ones?
-		RenderCommand* rc{};
+		RenderCommand* rc{};	
 		Component* renderable;
 		renderable = e->getComponent(eMesh);
 		if (renderable) {
@@ -74,8 +89,8 @@ void RenderingEngine::updateEntities() {
 	
 		if(rc){
 			m_renderManager->addRenderCommand(rc);
-			e->setDirty(false);
 		}
+	
 	}
 
 	m_dirtyEnts.clear();

@@ -10,6 +10,7 @@
 #include <Sprite.h>
 #include <Mesh.h>
 #include <mutex>
+#include <CameraController.h>
 
 
 namespace rendering {
@@ -21,8 +22,8 @@ public:
 	std::thread start();
 	bool shouldClose() { return m_shouldClose; };
 	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
-	void setCameraTransform();
-	void getCameraTransform();
+	void setCameraTransform(core::Transform* transform);
+	core::Transform* getCameraTransform();
 
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
@@ -37,7 +38,6 @@ private:
 	//move this to RenderManager?
 	void updateEntities();
 	std::vector<core::Entity*> m_dirtyEnts;
-
 	std::shared_ptr<core::InputManager> m_inputManager;
 
 
