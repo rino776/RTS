@@ -16,10 +16,26 @@
 * - generate normals for meshes that don't have them
 * - add support for other mesh files?
 * - different types of lighting?
+*	- change lighting to view space
 * - load sprites from file
 * - textures
-* 
+* - basic ui
+*	- buttons
+*	- debug console?
+* - start and stop rendering via cmd line
 */
+
+/*
+* game server thoughts/TODO list:
+* - set up basic commands (so, doesn't render right away... 
+	and allows you to connect via console before beginning rendering)
+* - set up basic socket connection
+* - figure out what data needs to be sent
+* - serialize data
+* - game lobby?/ connection lobby?
+* - 
+*/
+
 
 /*
  * note: if adding new projects
@@ -50,7 +66,6 @@ int main()
 {
 	std::shared_ptr<InputManager> inputManager = std::make_shared<InputManager>(InputManager());
 	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine(inputManager));
-
 
 	//start the rendering thread
 	std::thread renderingThread = renderingEngine->start();

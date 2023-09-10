@@ -5,10 +5,12 @@ using namespace rendering;
 
 
 
-RenderCommand::RenderCommand(unsigned int id, ShaderType material) {
-    m_id = id;
-    m_material = material;
-    m_geometry = nullptr;
+RenderCommand::RenderCommand(unsigned int id, ShaderType material) :
+        m_modelMatrix(1.0)
+    ,   m_id(id)
+    ,   m_material(material)
+    ,   m_geometry(nullptr)
+{
 }
 
 void RenderCommand::execute() {

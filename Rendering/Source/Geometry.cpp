@@ -3,10 +3,13 @@
 
 using namespace rendering;
 
-Geometry::Geometry()
+Geometry::Geometry() :
+        m_EBO(0)
+    ,   m_indexCount(-1)
+    ,   m_vertexCount(-1)
+    ,   m_isIndexed(false)
 {
     m_isIndexed = false;
-    m_vertexCount = 0;
     glGenVertexArrays(1, &m_id);
 }
 
