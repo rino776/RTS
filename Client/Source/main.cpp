@@ -62,13 +62,34 @@ using namespace rendering;
 using namespace core;
 using namespace loader;
 
-int main() 
+int main(int args, char** argv) 
 {
+	//should we render a window? or just the console?
+	bool bHeadless = false;
+
+	//allow custom settings
+	if (args > 1) {
+
+		for (int i = 1; i < args; i++) {
+			const char* param = argv[i];
+			if (strcmp(param, "--server") == 0) {
+				printf("running as server\n");
+				bHeadless = true;
+			}
+			else {
+				printf("using defaults\n");
+			}
+		}
+	}
+
+
 	std::shared_ptr<InputManager> inputManager = std::make_shared<InputManager>(InputManager());
 	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine(inputManager));
 
 	//start the rendering thread
-	std::thread renderingThread = renderingEngine->start();
+	std::thread renderingThread;
+	if(!bHeadless)
+		renderingThread = renderingEngine->start();
 
 	
 	std::vector<Entity*> entities;
@@ -87,14 +108,14 @@ int main()
 
 	CameraController* cam = new CameraController();
 	entities.push_back(cam);
-
-	renderingEngine->setDirtyEntities(entities);
+	if(!bHeadless)
+		renderingEngine->setDirtyEntities(entities);
 
 	for (Entity* e : entities) {
 		e->setInputManager(inputManager);
 	}
 	
-	while (!renderingEngine->shouldClose()) {
+	while (!renderingEngine->shouldClose() && !bHeadless) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
 		
 		for (Entity* e : entities) {
@@ -117,9 +138,25 @@ int main()
 		}
 
 	}
-
 	//join the threads back to the main thread
-	renderingThread.join();
+	if(!bHeadless)
+		renderingThread.join();
+	
+	//TODO: segregate this out into its own thread, and its own class...
+		bool shouldClose = false;
+		while (!shouldClose && bHeadless) {
+			printf("Please enter command: \n");
+			char str[80];
+			scanf_s("%s", &str, (unsigned)_countof(str));
+
+			if (strcmp("exit", str) == 0) {
+				shouldClose = true;
+				printf("Now exiting!\n");
+			} else {
+				printf("Invalid command!\n");
+			}
+		}
+
 	printf("All Done!\n");
 	return 0;
 }
