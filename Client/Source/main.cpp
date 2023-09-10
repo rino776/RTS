@@ -7,6 +7,7 @@
 #include <Transform.h>
 #include <Sprite.h>
 #include <CameraController.h>
+#include <Console.h>
 
 /*
 * TODO List:
@@ -61,6 +62,32 @@
 using namespace rendering;
 using namespace core;
 using namespace loader;
+using namespace client;
+
+//TODO: move these into thier own class - they shouldn't be public
+
+
+void updateEntities(RenderingEngine* renderingEngine, std::vector<Entity*> entities, 
+	std::vector<Entity*> dirtyEnts, CameraController* cam) {
+	for (Entity* e : entities) {
+		e->update();
+
+		if (e->isDirty()) {
+			dirtyEnts.push_back(e);
+		}
+	}
+
+	//special for just the cameraController
+	if (cam->isDirty()) {
+		Transform* cameraTransform = (Transform*)(cam->getComponent(eTransform));
+		renderingEngine->setCameraTransform(cameraTransform);
+	}
+
+	if (!dirtyEnts.empty()) {
+		renderingEngine->setDirtyEntities(dirtyEnts);
+		dirtyEnts.clear();
+	}
+}
 
 int main(int args, char** argv) 
 {
@@ -82,18 +109,19 @@ int main(int args, char** argv)
 		}
 	}
 
+	std::vector<Entity*> entities;
+	std::vector<Entity*> dirtyEnts;
 
 	std::shared_ptr<InputManager> inputManager = std::make_shared<InputManager>(InputManager());
 	std::unique_ptr<RenderingEngine> renderingEngine = std::make_unique<RenderingEngine>(RenderingEngine(inputManager));
+	std::unique_ptr<Console> console = std::make_unique<Console>(Console());
 
 	//start the rendering thread
 	std::thread renderingThread;
+	std::thread consoleThread = console->start();
 	if(!bHeadless)
 		renderingThread = renderingEngine->start();
-
 	
-	std::vector<Entity*> entities;
-	std::vector<Entity*> dirtyEnts;
 
 	Entity* ent = new Entity();
 	ent->addComponent(new Transform(glm::vec3(0.0, -0.7, -4.0)));
@@ -115,48 +143,20 @@ int main(int args, char** argv)
 		e->setInputManager(inputManager);
 	}
 	
-	while (!renderingEngine->shouldClose() && !bHeadless) {
+	while (!renderingEngine->shouldClose() && !console->shouldClose()) {
 		std::this_thread::sleep_for(std::chrono::milliseconds(1));
-		
-		for (Entity* e : entities) {
-			e->update();
-
-			if (e->isDirty()) {
-				dirtyEnts.push_back(e);
-			}
-		}
-
-		//special for just the cameraController
-		if (cam->isDirty()) {
-			Transform* cameraTransform = (Transform*)(cam->getComponent(eTransform));
-			renderingEngine->setCameraTransform(cameraTransform);
-		}
-
-		if (!dirtyEnts.empty()) {
-			renderingEngine->setDirtyEntities(dirtyEnts);
-			dirtyEnts.clear();
-		}
-
+		if (!bHeadless)
+			updateEntities(renderingEngine.get(), entities, dirtyEnts, cam);
 	}
+	
+	renderingEngine->setShouldClose(true);
+	console->setShouldClose(true);
+
 	//join the threads back to the main thread
 	if(!bHeadless)
 		renderingThread.join();
 	
-	//TODO: segregate this out into its own thread, and its own class...
-		bool shouldClose = false;
-		while (!shouldClose && bHeadless) {
-			printf("Please enter command: \n");
-			char str[80];
-			scanf_s("%s", &str, (unsigned)_countof(str));
-
-			if (strcmp("exit", str) == 0) {
-				shouldClose = true;
-				printf("Now exiting!\n");
-			} else {
-				printf("Invalid command!\n");
-			}
-		}
-
+	consoleThread.join();
 	printf("All Done!\n");
 	return 0;
 }

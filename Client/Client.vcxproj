@@ -136,6 +136,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="..\Client\Source\main.cpp" />
+    <ClCompile Include="Source\Console.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Core\Core.vcxproj">
@@ -822,6 +823,7 @@
     <ClInclude Include="Asio\asio\write.hpp" />
     <ClInclude Include="Asio\asio\write_at.hpp" />
     <ClInclude Include="Asio\asio\yield.hpp" />
+    <ClInclude Include="Include\Console.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

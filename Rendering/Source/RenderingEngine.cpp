@@ -11,6 +11,7 @@ std::mutex g_renderingMutex;
 
 RenderingEngine::RenderingEngine(std::shared_ptr<InputManager> inputManager) {
 	m_inputManager = inputManager;
+	m_shouldClose = false;
 }
 
 void RenderingEngine::init() {
@@ -39,7 +40,7 @@ void RenderingEngine::renderLoop() {
 	glEnable(GL_DEPTH_TEST);
 	glDepthFunc(GL_LESS);
 	glDisable(GL_CULL_FACE);
-	while (!m_windowManager->shouldClose()) {
+	while (!m_windowManager->shouldClose() && !m_shouldClose) {
 		//update stuff here
 		m_windowManager->updateWindow();
 

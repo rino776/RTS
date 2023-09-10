@@ -21,6 +21,9 @@
     <ClCompile Include="..\Client\Source\main.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
+    <ClCompile Include="Source\Console.cpp">
+      <Filter>Source Files</Filter>
+    </ClCompile>
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Asio\asio\ip\address.hpp">
@@ -2041,6 +2044,9 @@
     </ClInclude>
     <ClInclude Include="Asio\asio\yield.hpp">
       <Filter>Header Files\asio</Filter>
+    </ClInclude>
+    <ClInclude Include="Include\Console.h">
+      <Filter>Header Files</Filter>
     </ClInclude>
   </ItemGroup>
 </Project>

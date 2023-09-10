@@ -24,6 +24,7 @@ public:
 	void setDirtyEntities(std::vector<core::Entity*>& dirtyEnts);
 	void setCameraTransform(core::Transform* transform);
 	core::Transform* getCameraTransform();
+	void setShouldClose(bool bShouldClose) { m_shouldClose = bShouldClose; };
 
 protected:
 	RenderCommand* createSprite(core::Sprite* sprite, unsigned int id);
